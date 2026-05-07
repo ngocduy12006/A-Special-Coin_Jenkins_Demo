@@ -8,7 +8,7 @@ namespace CoinRepresentation
 {
     public class CoinRepresentation
     {
-        private static Dictionary<long, long> Z = new Dictionary<long, long>();
+        private static Dictionary<long, long> Z_num = new Dictionary<long, long>();
         private static bool isEven(long sum)
         {
             if (sum % 2 == 0) return true;
@@ -18,21 +18,22 @@ namespace CoinRepresentation
         public static long Solve(long sum)
         {
             if (sum == 1 || sum == 0) return 1;
-            if (Z.ContainsKey(sum))
+            if (Z_num.ContainsKey(sum))
             {
-                return Z[sum];
+                return Z_num[sum];
             }
             long result;
-            if (isEven(sum) == false)
+            if (isEven(sum) == true)
             {
-                 result =  Solve((sum - 1) / 2);
+                result = Solve(sum / 2) + Solve((sum - 2) / 2);
+                
             }
             else
             {
-                 result = Solve(sum / 2) + Solve((sum -2)/2);
+                result = Solve((sum - 1) / 2);
             }
 
-            Z[sum] = result;
+            Z_num[sum] = result;
             return result; 
         }
 
